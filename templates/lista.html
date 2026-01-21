@@ -1,0 +1,47 @@
+{% extends "template.html" %}
+{% block conteudo %}
+            <div class="search-section">
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Buscar jogos...">
+                </div>
+                <a class="btn btn-primary" href="{{ url_for('cadastro') }}">Novo Jogo</a>
+            </div>
+
+            <div class="games-grid" id="gamesGrid">
+                {% for jogo in jogos %}
+                    <div class="game-card" data-name="{{ jogo.nome|lower }}" data-category="{{ jogo.categoria|lower }}" data-console="{{ jogo.console|lower }}">
+                        <div class="game-card-image">
+                            <img src="{{ url_for('imagem', nome_arquivo=recupera_imagem(jogo.id)) }}"
+                                 alt="{{ jogo.nome }}"
+                                 loading="lazy">
+                            <div class="game-card-overlay">
+                                <div class="card-actions">
+                                    <a href="{{ url_for('editar', id=jogo.id) }}" class="icon-btn" title="Editar">
+                                        Editar
+                                    </a>
+                                    <a href="{{ url_for('deletar', id=jogo.id) }}" class="icon-btn" title="Deletar">
+                                        Deletar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="game-card-content">
+                            <h3 class="game-card-title">{{ jogo.nome }}</h3>
+                            <div class="game-card-meta">
+                                <span class="meta-badge meta-category">
+                                    {{ jogo.categoria }}
+                                </span>
+                                <span class="meta-badge meta-console">
+                                    {{ jogo.console }}
+                                </span>
+                                <span class="meta-badge meta-year">
+                                    {{ jogo.ano_lancamento }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <script type="text/javascript" src="{{ url_for('static', filename='search.js') }}"></script>
+{% endblock %}
