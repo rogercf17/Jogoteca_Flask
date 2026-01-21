@@ -9,6 +9,9 @@ app = Flask(__name__)
 app.config.from_pyfile('config.py')
 
 db = SQLAlchemy(app)
+with app.app_context():
+    db.create_all()
+
 csrf = CSRFProtect(app)
 bcrypt = Bcrypt(app)
 
