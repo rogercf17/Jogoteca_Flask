@@ -9,14 +9,14 @@ app = Flask(__name__)
 app.config.from_pyfile('config.py')
 
 db = SQLAlchemy(app)
-with app.app_context():
-    db.create_all()
-
 csrf = CSRFProtect(app)
 bcrypt = Bcrypt(app)
 
 from views_game import *
 from views_user import *
+
+with app.app_context():
+    db.create_all()
 
 if __name__ == '__main__':
     app.run()
