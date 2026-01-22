@@ -18,6 +18,9 @@ from views_user import *
 with app.app_context():
     db.create_all()
 
+    from seed import prepara_banco
+    prepara_banco()
+
 if __name__ == '__main__':
     app.run()
 # app.run(host='0.0.0.0', port=8080)
